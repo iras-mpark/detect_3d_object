@@ -1,0 +1,37 @@
+<!-- example.launch.xml -->
+
+<launch>
+
+  <!-- args that can be set from the command line or a default will be used -->
+  <arg name="tb_ns" default="turtlebot1"/>
+
+  <include file="$(find-pkg-share openrobotics_darknet_ros)/detector_launch.py">
+    <arg name="rgb_image" value="oak/rgb/image_raw"/>
+  </include>
+
+  <!-- start a detect_3d_object in the tb namespace -->
+  <node pkg="detect_3d_object" exec="detect_3d_object_node" name="detect_3d_object"> <!-- namespace="$(var tb_ns)" -->
+    <remap from="/depth/image" to="oak/stereo/image_raw"/>
+    <remap from="/depth/camera_info" to="oak/stereo/camera_info"/>
+    <param name="parent_frame" value="base_link"/>
+  </node>
+
+
+  <group>
+    <!-- push-ros-namespace to set namespace of included nodes -->
+    <push-ros-namespace namespace="$(var tb_ns)"/>
+    <!-- include another launch file -->
+    <!-- include file="$(find-pkg-share openrobotics_darknet_ros)/detector_launch.py">
+      <arg name="rgb_image" value="oak/rgb/image_raw"/>
+    </include -->
+
+    <!-- start a detect_3d_object in the tb namespace -->
+    <!-- node pkg="detect_3d_object" exec="detect_3d_object_node" name="detect_3d_object"--> <!-- namespace="$(var tb_ns)" -->
+      <!-- remap from="/depth/image" to="oak/streo/image_raw"/ -->
+      <!-- remap from="/depth/camera_info" to="oak/stereo/camera_info"/ -->
+      <!-- param name="parent_frame" value="base_link"/ -->
+    <!-- /node -->
+
+  </group>
+
+</launch>
