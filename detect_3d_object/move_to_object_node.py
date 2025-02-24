@@ -9,7 +9,7 @@ class GoalPublisher(Node):
 
         # ROS 2 parameter declare
         self.declare_parameter('source_frame', 'map')
-        self.declare_parameter('target_frame', 'target_frame')
+        self.declare_parameter('target_frame', 'chair_frame')
 
         # TF2 buffer and listener
         self.tf_buffer = tf2_ros.Buffer()
