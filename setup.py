@@ -24,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'detect_3d_object_node = detect_3d_object.detect_3d_object_node:main'
+            'detect_3d_object_node = detect_3d_object.detect_3d_object_node:main',
+            'move_to_object_node = detect_3d_object.move_to_object_node:main'
         ],
     },
 )
