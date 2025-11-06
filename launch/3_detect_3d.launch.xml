@@ -1,0 +1,12 @@
+<!-- example.launch.xml -->
+
+<launch>
+
+  <node pkg="detect_3d_object" exec="detect_3d_object_node" name="detect_3d_object">
+    <remap from="/depth/image" to="oak/stereo/image_raw"/>
+    <remap from="/depth/camera_info" to="oak/stereo/camera_info"/>
+    <param name="parent_frame" value="base_link"/>
+  </node>
+
+
+</launch>

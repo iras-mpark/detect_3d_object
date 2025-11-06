@@ -1,0 +1,12 @@
+<!-- example.launch.xml -->
+
+<launch>
+
+  <include file="$(find-pkg-share depthai_ros_driver)/launch/camera.launch.py">
+    <arg name="camera_model" value="OAK-D-PRO-W"/>
+    <arg name="parent_frame" value="base_link"/>
+    <arg name="rectify_rgb"  value="false"/>
+  </include>
+
+
+</launch>
