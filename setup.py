@@ -28,7 +28,8 @@ setup(
     entry_points={
         'console_scripts': [
             'detect_3d_object_node = detect_3d_object.detect_3d_object_node:main',
-            'move_to_object_node = detect_3d_object.move_to_object_node:main'
+            'move_to_object_node = detect_3d_object.move_to_object_node:main',
+            'local_clock_publisher = detect_3d_object.local_clock_publisher:main',
         ],
     },
 )

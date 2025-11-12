@@ -1,11 +1,14 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.parameter import Parameter
+from rclpy.exceptions import ParameterAlreadyDeclaredException
 import tf2_ros
 from geometry_msgs.msg import PoseStamped
 
 class GoalPublisher(Node):
     def __init__(self):
         super().__init__('goal_publisher')
+        self._force_sim_time()
 
         # ROS 2 parameter declare
         self.declare_parameter('source_frame', 'map')
@@ -51,6 +54,13 @@ class GoalPublisher(Node):
         except tf2_ros.ExtrapolationException:
             self.get_logger().warn('TF extrapolation error')
 
+    def _force_sim_time(self):
+        try:
+            self.declare_parameter('use_sim_time', True)
+        except ParameterAlreadyDeclaredException:
+            pass
+        self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
+
 def main(args=None):
     rclpy.init(args=args)
     node = GoalPublisher()
@@ -60,4 +70,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-

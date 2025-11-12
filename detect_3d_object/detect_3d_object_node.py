@@ -1,5 +1,7 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.parameter import Parameter
+from rclpy.exceptions import ParameterAlreadyDeclaredException
 from sensor_msgs.msg import Image, CameraInfo
 from vision_msgs.msg import Detection2DArray
 from cv_bridge import CvBridge, CvBridgeError
@@ -11,6 +13,7 @@ import geometry_msgs.msg
 class ObjectDetectionOverlay(Node):
     def __init__(self):
         super().__init__('object_detection_overlay')
+        self._force_sim_time()
 
         # Subscribe to the camera image, camera info, and detection topics
         self.image_sub = self.create_subscription(
@@ -172,6 +175,13 @@ class ObjectDetectionOverlay(Node):
 
         # Publish the transform
         self.tf_broadcaster.sendTransform(t)
+
+    def _force_sim_time(self):
+        try:
+            self.declare_parameter('use_sim_time', True)
+        except ParameterAlreadyDeclaredException:
+            pass
+        self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
 def main(args=None):
     rclpy.init(args=args)
